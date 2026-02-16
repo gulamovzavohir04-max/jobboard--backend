@@ -1,7 +1,10 @@
-from django.urls import path
-from .views import JobListCreateView, JobRetrieveUpdateDeleteView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import JobViewSet
+
+router = DefaultRouter()
+router.register(r"jobs", JobViewSet, basename="jobs")
 
 urlpatterns = [
-    path("jobs/", JobListCreateView.as_view()),
-    path("jobs/<int:pk>/", JobRetrieveUpdateDeleteView.as_view()),
+    path("", include(router.urls)),
 ]
